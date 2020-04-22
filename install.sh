@@ -24,7 +24,7 @@
 ##################################################################################
 
 # Check distrib
-if ! command -v apt-get &> /dev/null; then
+if ! command -v yum &> /dev/null; then
   echo "ERROR: OS distribution not supported..."
   exit 1
 fi
@@ -54,17 +54,10 @@ echo ""
 echo "Starting CSGO Server Launcher install (v${version})..."
 echo ""
 
-echo "Adding i386 architecture..."
-dpkg --add-architecture i386 >/dev/null
-if [ "$?" -ne "0" ]; then
-  echo "ERROR: Cannot add i386 architecture..."
-  exit 1
-fi
-
 echo "Installing required packages..."
-apt-get update >/dev/null
+yum update >/dev/null
 
-apt-get install -y -q libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses? lib32z1 curl gdb screen tar >/dev/null
+yum install -y -q glibc.i686 libstdc++.i686 curl gdb screen tar >/dev/null
 if [ "$?" -ne "0" ]; then
   echo "ERROR: Cannot install required packages..."
   exit 1
